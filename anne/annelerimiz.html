@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Canım Anneme</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(180deg, #bfe7ff, #e6f7ff);
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  /* Açılış ekranı */
+  .intro {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #bfe7ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+
+  .intro h1 {
+    color: #ff4d6d;
+    padding: 20px;
+  }
+
+  button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    background: #ff4d6d;
+    color: white;
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  /* Ana içerik */
+  .container {
+    padding: 20px;
+    display: none;
+  }
+
+  /* Üst kalp SVG görseli */
+  .heart-header {
+    margin: 15px auto;
+    width: 120px;
+    height: 120px;
+  }
+
+  /* Kart */
+  .card {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+  }
+
+  /* Slider */
+  .slider {
+    display: none;
+    overflow: hidden;
+    margin: 20px auto;
+    max-width: 700px;
+    width: 90%;
+  }
+
+  .slides {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .slides img {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 15px;
+    margin: 10px;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+
+  /* Foto büyütme modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal img {
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+  }
+
+  /* Mesaj kutusu */
+  .mesajKutusu {
+    display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mesajIcerik {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 350px;
+  }
+
+  .kapatBtn {
+    margin-top: 20px;
+    background: #4caf50;
+  }
+
+  /* Çiçek animasyonu */
+  .flower {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall 6s linear infinite;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+
+  /* Konfeti */
+  .confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: fall2 3s linear forwards;
+  }
+
+  @keyframes fall2 {
+    0% {
+      transform: translateY(0) rotate(0);
+    }
+    100% {
+      transform: translateY(100vh) rotate(720deg);
+    }
+  }
+
+  /* Responsive ayarlar */
+  @media (max-width: 480px) {
+    .slides img {
+      max-width: 280px;
+      margin: 5px;
+    }
+    .heart-header {
+      width: 90px;
+      height: 90px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Açılış ekranı -->
+<div class="intro" id="intro">
+  <h1>💐 Bu site dünyanın en iyi annesi için hazırlandı 💐</h1>
+  <button onclick="siteyiAc()">Sürprizi Gör</button>
+</div>
+
+<!-- Ana site -->
+<div class="container" id="site">
+
+  <!-- Kalp SVG görseli -->
+  <div class="heart-header">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="#ff4d6d"
+      width="120px"
+      height="120px"
+    >
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+        4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 
+        3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+    </svg>
+  </div>
+
+  <h1>💐 Canım Anneme 💐</h1>
+
+  <div class="card">
+    <p>Anne sevgisi dünyadaki en saf sevgidir.</p>
+    <p>Sen benim en büyük şansım ve en güzel hediyemsin.</p>
+    <p>Hayatım boyunca bana verdiğin tüm sevgi için teşekkür ederim.</p>
+  </div>
+
+  <button onclick="fotolariAc()">📷 Fotoğrafları Gör</button>
+  <button onclick="mesajAc()">🎉 Mesajı Aç</button>
+  <button onclick="paylas()">📤 Anneme Gönder</button>
+
+  <div class="slider" id="slider">
+    <div class="slides" id="slides">
+      <img src="foto1.jpg" onclick="buyut(this)" alt="Fotoğraf 1" />
+      <img src="foto2.jpg" onclick="buyut(this)" alt="Fotoğraf 2" />
+      <img src="foto3.jpg" onclick="buyut(this)" alt="Fotoğraf 3" />
+      <img src="foto4.jpg" onclick="buyut(this)" alt="Fotoğraf 4" />
+      <img src="foto5.jpg" onclick="buyut(this)" alt="Fotoğraf 5" />
+      <img src="foto6.jpg" onclick="buyut(this)" alt="Fotoğraf 6" />
+      <img src="foto7.jpg" onclick="buyut(this)" alt="Fotoğraf 7" />
+      <img src="foto8.jpg" onclick="buyut(this)" alt="Fotoğraf 8" />
+    </div>
+  </div>
+</div>
+
+<!-- Foto büyütme modal -->
+<div class="modal" id="modal" onclick="kapatFoto()">
+  <img id="buyukFoto" alt="Büyütülmüş Fotoğraf" />
+</div>
+
+<!-- Mesaj kutusu -->
+<div class="mesajKutusu" id="mesajKutusu">
+  <div class="mesajIcerik">
+    <h2>💐 Kadınlar Günün Kutlu Olsun</h2>
+    <p>
+      Anneciğim iyi ki varsın.<br />
+      Hayatım boyunca bana verdiğin sevgi ve emek için teşekkür ederim.<br />
+      Seni çok seviyorum ❤️
+    </p>
+    <button class="kapatBtn" onclick="mesajKapat()">Kapat</button>
+  </div>
+</div>
+
+<script>
+  function siteyiAc() {
+    document.getElementById('intro').style.display = 'none';
+    document.getElementById('site').style.display = 'block';
+    if (navigator.vibrate) navigator.vibrate(100);
+  }
+
+  function fotolariAc() {
+    document.getElementById('slider').style.display = 'block';
+    if (navigator.vibrate) navigator.vibrate(80);
+  }
+
+  let index = 0;
+  setInterval(() => {
+    const slides = document.getElementById('slides');
+    const slideWidth = document.querySelector('.slides img').clientWidth + 20; // resim genişliği + margin
+    index++;
+    if (index > 7) index = 0;
+    slides.style.transform = `translateX(${-index * slideWidth}px)`;
+  }, 3000);
+
+  function buyut(img) {
+    document.getElementById('modal').style.display = 'flex';
+    document.getElementById('buyukFoto').src = img.src;
+  }
+
+  function kapatFoto() {
+    document.getElementById('modal').style.display = 'none';
+  }
+
+  function mesajAc() {
+    document.getElementById('mesajKutusu').style.display = 'flex';
+    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+    konfetiPatlat();
+  }
+
+  function mesajKapat() {
+    document.getElementById('mesajKutusu').style.display = 'none';
+  }
+
+  function paylas() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Kadınlar Günü',
+        text: 'Senin için hazırladım ❤️',
+        url: window.location.href,
+      });
+    } else {
+      alert('Paylaşma özelliği tarayıcınızda desteklenmiyor.');
+    }
+  }
+
+  function konfetiPatlat() {
+    for (let i = 0; i < 120; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + 'vw';
+      const colors = ['red', 'yellow', 'blue', 'green', 'pink'];
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      document.body.appendChild(confetti);
+      setTimeout(() => {
+        confetti.remove();
+      }, 4000);
+    }
+  }
+
+  function flower() {
+    const f = document.createElement('div');
+    f.classList.add('flower');
+    f.innerHTML = '🌸';
+    f.style.left = Math.random() * 100 + 'vw';
+    document.body.appendChild(f);
+    setTimeout(() => {
+      f.remove();
+    }, 6000);
+  }
+  setInterval(flower, 700);
+</script>
+
+</body>
+</html>
